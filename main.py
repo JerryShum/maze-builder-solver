@@ -3,7 +3,7 @@ from maze import Maze
 from cell import Cell
 
 def main():
-    win = Window("Maze Solver", 400, 400)
+    win = Window("Maze Solver", 800, 800)
    
     win.wait_for_close()
     

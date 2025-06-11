@@ -23,9 +23,11 @@ class Window:
         self.inputFrame = Frame(self.__root)
         self.mazeFrame = Frame(self.__root)
                 
+        #@ Setup functions for input and maze screens
         self.setup_input_screen()
         self.setup_maze_screen()
         
+        #@ Start with the input screen -> maze screen is called with a button (from setup_input_screen)
         self.inputFrame.pack()
 
         
@@ -75,7 +77,7 @@ class Window:
         self.inputFrame.pack_forget()
         self.mazeFrame.pack()
 
-        self.maze = Maze(10, 10, rows, cols, 10, 10, self, 0.5)
+        self.maze = Maze(10, 10, rows, cols, 25, 25, self, 0.5)
     
     def back_to_input_screen(self):
         self.canvas.delete("all")
