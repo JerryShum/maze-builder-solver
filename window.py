@@ -48,6 +48,10 @@ class Window:
         self.colInput = Entry(self.inputFrame)
         self.colInput.pack()
         
+        Label(self.inputFrame, text="Random Seed").pack()
+        self.randomSeed = Entry(self.inputFrame)
+        self.randomSeed.pack()
+        
         start_button = Button(self.inputFrame, text="Generate Maze", command=self.start_maze_screen)
         start_button.pack()
     
@@ -65,8 +69,10 @@ class Window:
     
     def start_maze_screen(self):
         try:
+            #! Get all the user inputs from the maze screen
             rows = int(self.rowInput.get())
             cols = int(self.colInput.get())
+            randomSeed = int(self.randomSeed.get())
             
         except ValueError:
             print("Invalid input")
@@ -77,7 +83,8 @@ class Window:
         self.inputFrame.pack_forget()
         self.mazeFrame.pack()
 
-        self.maze = Maze(10, 10, rows, cols, 25, 25, self, 0.5)
+        #! Use the inputs to create the maze
+        self.maze = Maze(10, 10, rows, cols, 25, 25, self, randomSeed)
     
     def back_to_input_screen(self):
         self.canvas.delete("all")
