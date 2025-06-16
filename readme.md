@@ -52,13 +52,14 @@ or
 ### 2. Maze Solving
 
 -  A `solve_bfs(start_row, start_col)` function explores neighbors using a queue.
--  Parents are tracked for backtracking and final path reconstruction.
--  The solution path is visualized using colored lines.
+    -  Parents are tracked for backtracking and final path reconstruction.
+    -  The solution path is visualized using colored lines.
 
--  A `solve_dfs(start_row, start_col)` function explores neighbors using a stack.
--  A recursive approach is used to avoid keeping track of parents.
--  Backracking is supported and occurs whenever the algorithm encounters a dead-end.
--  The solution path is visualized using colored lines.
+
+-  A `solve_dfs(start_row, start_col)` function explores neighbors using a recursive approach.
+    -  The recursive approach is used to avoid keeping track of parents.
+    -  Backracking is supported and occurs whenever the algorithm encounters a dead-end.
+    -  The solution path is visualized using colored lines.
 
 ### 3. Animation
 
