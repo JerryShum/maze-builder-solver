@@ -95,7 +95,7 @@ or
     <tr>
       <td><strong>Maze Generated</strong></td>
       <td><strong>BFS Traversal</strong></td>
-      <td><strong>Final Path</strong></td>
+      <td><strong>DFS Traversal</strong></td>
     </tr>
     <tr>
       <td><img src="public/maze1.png" alt="Maze Generated" width="250"/></td>
