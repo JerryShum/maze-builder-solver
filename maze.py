@@ -264,12 +264,126 @@ class Maze:
         
         return False
     
-    def solve(self):
-        if self.__solve_r(0,0):
-            return True
-        else:
-            return False
-                
+    def solve_bfs(self, row, col):
+        
+        self.__animate()
+        current_cell = self.__cells[row][col]
+        current_cell.visited = True
+        
+        #! Dictionary to store the parent of each cell
+        # (row,col) -> (prev_row, prev_col)
+        parents = {}
+        
+
+        queue = deque()
+        queue.append(current_cell)
+        
+        while queue:
+            queue_cell = queue.popleft()
+            queue_cell.visited = True
+            row = queue_cell.row
+            col = queue_cell.col
+            
+            # if queue_cell is the end_cell (bottom left)
+            if queue_cell == self.__cells[self.num_rows -1][self.num_cols - 1]:
+                break
+            
+   
+            
+            #! Find the neighbours of the cell
+            #@ checking for the cell to the top
+            if row - 1 >= 0:
+                top_cell = self.__cells[row - 1][col]
+                if not top_cell.visited and not queue_cell.has_top_wall and not top_cell.has_bottom_wall:
+                    # mark as visited
+                    top_cell.visited = True
+                    
+                    # add the neighbour to the queue
+                    queue.append(top_cell)
+                    
+                    # add the neighbour to the parents dictionary
+                    parents[(row - 1, col)] = (row, col)
+                    
+                    queue_cell.draw_move(top_cell)
+                    self.__animate()
+                    
+            #@ checking for the cell to the left
+            if col - 1 >= 0:
+                left_cell = self.__cells[row][col - 1]
+                if not left_cell.visited and not queue_cell.has_left_wall and not left_cell.has_right_wall:
+                    # mark as visited
+                    left_cell.visited = True
+                    
+                    
+                    # add the neighbour to the queue
+                    queue.append(left_cell)
+                    
+                    # add the neighbour to the parents dictionary
+                    parents[(row, col - 1)] = (row, col)
+                    
+                    queue_cell.draw_move(left_cell)
+                    self.__animate()
+          
+            #@ Checking for the cell to the bottom
+            if row + 1 < self.num_rows:
+                bottom_cell = self.__cells[row + 1][col]
+                if not bottom_cell.visited and not queue_cell.has_bottom_wall and not bottom_cell.has_top_wall:
+                    # mark as visited
+                    bottom_cell.visited = True
+                    
+                    # add the neighbour to the queue
+                    queue.append(bottom_cell)
+                    
+                    # add the neighbour to the parents dictionary
+                    parents[(row + 1, col)] = (row, col)
+                    
+                    queue_cell.draw_move(bottom_cell)
+                    self.__animate()
+              
+            #@ Checking for the cell to the right
+            if col + 1 < self.num_cols:
+                right_cell = self.__cells[row][col + 1]
+                if not right_cell.visited and not queue_cell.has_right_wall and not right_cell.has_left_wall:
+                    # mark as visited
+                    right_cell.visited = True
+                    
+                    # add the neighbour to the queue
+                    queue.append(right_cell)
+            
+                    # add the neighbour to the parents dictionary
+                    parents[(row, col + 1)] = (row, col)
+                    
+                    queue_cell.draw_move(right_cell)
+                    self.__animate()
+        
+        #! Backtrack from the end cell to the start cell (solution for the maze)
+        # starting from the end cell
+        current_cell = self.__cells[self.num_rows - 1][self.num_cols - 1]
+        
+        # re-assigning current_cell to the parent of the current cell
+        # draw_move(current_cell)
+        # until current_cell is the start cell
+        while current_cell != self.__cells[0][0]:
+            prev_row, prev_col = parents[(current_cell.row, current_cell.col)]
+            current_cell.draw_move(self.__cells[prev_row][prev_col], bfs=True)
+            current_cell = self.__cells[prev_row][prev_col]
+            self.__animate()
+            
+        return True
+        
+        
+    
+    def solve(self, algorithm="dfs"):
+        if algorithm == "dfs":
+            if self.__solve_r(0,0):
+                return True
+            else:
+                return False
+        elif algorithm == "bfs":
+            if self.solve_bfs(0,0):
+                return True
+            else:
+                return False
                 
             
 

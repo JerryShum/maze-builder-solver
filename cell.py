@@ -72,7 +72,7 @@ class Cell:
             line = Line(point1, point2)
             self.__window.draw_line(line, "white")
             
-    def draw_move(self, to_cell, undo=False):
+    def draw_move(self, to_cell, undo=False, bfs=False):
         
         if self.__window == None:
             return
@@ -94,6 +94,8 @@ class Cell:
         # if we are undoing, set the line to gray
         if undo:
             fill_color = "gray"
+        elif bfs:
+            fill_color = "green"
         else:
             fill_color = "red"
             

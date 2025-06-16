@@ -19,6 +19,8 @@ class Window:
         self.maze = None
         self.windowRunning = False
         
+        self.solvePressed = False
+        
         #@ Creating input and maze screens
         self.inputFrame = Frame(self.__root)
         self.mazeFrame = Frame(self.__root)
@@ -61,7 +63,11 @@ class Window:
         self.canvas.pack()
 
         # Buttons
-        self.solveButton = Button(self.mazeFrame, text="Solve Maze", command=self.solve_maze)
+        self.solveButton = Button(self.mazeFrame, text="Solve Using DFS", command=self.solve_maze_dfs)
+        self.solveButton.pack()
+        
+        # Buttons
+        self.solveButton = Button(self.mazeFrame, text="Solve Using BFS", command=self.solve_maze_bfs)
         self.solveButton.pack()
 
         self.clearButton = Button(self.mazeFrame, text="Clear & Back", command=self.back_to_input_screen)
@@ -87,10 +93,12 @@ class Window:
         self.maze = Maze(10, 10, rows, cols, 25, 25, self, randomSeed)
     
     def back_to_input_screen(self):
+        #@ Resetting all the states
         self.canvas.delete("all")
         self.createButtonPress = False
         self.mazeFrame.pack_forget()
         self.inputFrame.pack()
+        self.solvePressed = False
 
     #! Function for button callback
     def create_maze(self):
@@ -100,9 +108,24 @@ class Window:
         else:
             return
     
-    def solve_maze(self):
+    def solve_maze_dfs(self):
+        # if user has already pressed the button: return
+        if self.solvePressed:
+            return
+        
+        self.solvePressed = True
         if self.maze != None:
-            self.maze.solve()
+            self.maze.solve(algorithm="dfs")
+            
+    def solve_maze_bfs(self):
+        # if user has already pressed the button: return
+        if self.solvePressed:
+            return
+        
+        self.solvePressed = True
+        
+        if self.maze != None:
+            self.maze.solve(algorithm="bfs")
     
     def clear_canvas(self):
         self.canvas.delete("all")
