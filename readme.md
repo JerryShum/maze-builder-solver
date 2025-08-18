@@ -1,6 +1,6 @@
 # 🧩 Maze Solver Visualizer
 
-A Python application built with **Tkinter** that generates a random maze and visualizes the pathfinding process using **Breadth-First Search (BFS)**.
+A Python application built with **Tkinter** that generates a random maze and visualizes the pathfinding process using **Breadth-First Search (BFS)** and **Depth-First Search (DFS)**.
 
 ![demo-gif](public/mazedemo.gif) <!-- Optional: Insert a GIF of the animation -->
 
